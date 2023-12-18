@@ -17,9 +17,7 @@
         {% for cat in cats %}
             <tr>
                 <th scope="row">{{ loop.index }}</th>
-                <td>
-                    <a href="/admin/product/{{ product.id }}">{{ cat.name }}</a>	
-                </td>
+                <td>{{ cat.name }}</td>
                 {% if cat.img %}
                     <td><img src="/assets/img/category/{{ cat.img }}" height="50px"></td>
                 {% else %}

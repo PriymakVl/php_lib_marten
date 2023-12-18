@@ -22,10 +22,11 @@ class BaseController
         header('Location: /' . $url);
     }
 
-    protected function addMessage($result, $key)
+    protected function addMessage($result, $text, $key = true)
     {
         $type = $result ? 'ok' : 'error';
-        Message::add($key, $type);
+        if ($key) Message::addKey($text, $type);
+        else Message::addText($text, $type);
         return $this;
     }
 

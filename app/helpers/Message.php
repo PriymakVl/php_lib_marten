@@ -5,33 +5,38 @@ namespace App\Helpers;
 class Message
 {
 
-    public static function init()
+    public static function addKey($key, $type) 
     {
         session_start();
+        $_SESSION['mess']['type'] = $type;
+        $_SESSION['mess']['key'] = $key;
     }
 
-    public static function add($value, $key) 
+    public static function addText($text, $type)
     {
-        $_SESSION['mess'][$key] = $value;
+        session_start();
+        $_SESSION['mess']['type'] = $type;
+        $_SESSION['mess']['text'] = $text;
     }
 
     public static function display()
     {
+        session_start();
         if (empty($_SESSION['mess'])) return;
-        //получаем название ключа
-        $key = key($_SESSION['mess']);
-        $message = self::getMessage($key);
-        // dd($message);
+        $message = self::getMessage();
+        $type = $_SESSION['mess']['type'];
+        if ($type == 'ok') echo "<div class='alert alert-success mt-3'>$message</div>";
+        else echo "<div class='alert alert-danger mt-3'>$message</div>"; 
         unset($_SESSION['mess']);
-        if ($key == 'ok') return "<div class='alert alert-success mt-3'>$message</div>";
-        return "<div class='alert alert-danger mt-3'>$message</div>"; 
-       
     }
 
-    private static function getMessage($key)
+    private static function getMessage()
     {
+        if ($_SESSION['mess']['text']) return $_SESSION['mess']['text'];
+        $type = $_SESSION['mess']['type'];
+        $key = $_SESSION['mess']['key'];
         $messages = include 'messages.php';
-        return $messages[$key][$_SESSION['mess'][$key]];
+        return $messages[$type][$key];
     }
 }
 

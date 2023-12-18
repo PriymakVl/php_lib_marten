@@ -45,7 +45,7 @@
     <!-- end menu -->
 </div>
 
-<div class="container"><? echo  App\Helpers\Message::display(); ?></div>
+<div class="container"><? App\Helpers\Message::display(); ?></div>
 
 <?php echo $twig->render($template_path, $data); ?>
 

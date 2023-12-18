@@ -13,12 +13,6 @@ class CategoryController extends BaseController
         $this->render('category/index', compact('cats'));
     }
 
-    public function view($id)
-    {
-        $cat = Category::getOne($id);
-        $this->render('category/view', compact('cat'));
-    }
-
     public function add()
     {
         $cats = Category::getMain(true);
@@ -27,9 +21,9 @@ class CategoryController extends BaseController
 
     public function create()
     {
-        $id = Category::add($_POST);
-        $this->addMessage($id, 'add_cat');
-        $this->redirect('admin/category/'. $id);   
+        $result = Category::add($_POST);
+        $this->addMessage($result, 'add_cat');
+        $this->redirect('admin/categories');   
     }
 
     public function edit()

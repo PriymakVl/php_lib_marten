@@ -49,15 +49,15 @@ class Category extends \App\Models\Model
 		return \ORM::forTable(self::getTable())->where('parent_id', $id)->findMany();
 	}
 
-	// public static function add($form) 
-	// {
-	// 	$product = ORM::forTable('products')->create();
-	// 	$product->name = $form['name'];
-	// 	$product->price = $form['price'];
-	// 	$product->img = self::addImage();
-	// 	// $product->save();
-	// 	return $product->id();
-	// }
+	public static function add($form) 
+	{
+		$category = \ORM::forTable(self::getTable())->create();
+		$category->name = $form['name'];
+		$category->parent_id = $form['parent_id'];
+		// $product->img = self::addImage();
+		$category->img = null;
+		return $category->save();
+	}
 
 	// public static function edit($form) 
 	// {
