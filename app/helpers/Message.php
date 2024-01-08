@@ -5,14 +5,14 @@ namespace App\Helpers;
 class Message
 {
 
-    public static function addKey($key, $type) 
+    public static function addKey($type, $key) 
     {
         session_start();
         $_SESSION['mess']['type'] = $type;
         $_SESSION['mess']['key'] = $key;
     }
 
-    public static function addText($text, $type)
+    public static function addText($type, $text)
     {
         session_start();
         $_SESSION['mess']['type'] = $type;
@@ -23,17 +23,18 @@ class Message
     {
         session_start();
         if (empty($_SESSION['mess'])) return;
-        $message = self::getMessage();
         $type = $_SESSION['mess']['type'];
-        if ($type == 'ok') echo "<div class='alert alert-success mt-3'>$message</div>";
-        else echo "<div class='alert alert-danger mt-3'>$message</div>"; 
+
+        $text = self::getText($type);
+        if ($type == 'ok') echo "<div class='alert alert-success mt-3'>$text</div>";
+        else echo "<div class='alert alert-danger mt-3'>$text</div>"; 
+
         unset($_SESSION['mess']);
     }
 
-    private static function getMessage()
+    private static function getText($type)
     {
         if ($_SESSION['mess']['text']) return $_SESSION['mess']['text'];
-        $type = $_SESSION['mess']['type'];
         $key = $_SESSION['mess']['key'];
         $messages = include 'messages.php';
         return $messages[$type][$key];

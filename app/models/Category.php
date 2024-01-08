@@ -37,7 +37,7 @@ class Category extends \App\Models\Model
 		return $cat;
 	}
 
-	private static function getParent($id, $sub = false)
+	public static function getParent($id, $sub = false)
 	{
 		if (!$id) return;
 		$cat = parent::findOne($id);
@@ -46,7 +46,7 @@ class Category extends \App\Models\Model
 	}
 
 	private static function getSub($parent_id) {
-		return \ORM::forTable(self::getTable())->where('parent_id', $id)->findMany();
+		return \ORM::forTable(self::getTable())->where('parent_id', $parent_id)->findMany();
 	}
 
 	public static function add($form) 
@@ -55,7 +55,7 @@ class Category extends \App\Models\Model
 		$category->name = $form['name'];
 		$category->parent_id = $form['parent_id'];
 		// $product->img = self::addImage();
-		$category->img = null;
+		// $category->img = null;
 		return $category->save();
 	}
 

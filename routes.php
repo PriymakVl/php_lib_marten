@@ -49,9 +49,11 @@ SimpleRouter::get('/admin/product/delete/{id}', 'ProductController@delete');
 SimpleRouter::get('/admin/product/{id}', 'ProductController@view')->where([ 'id' => '[0-9]+' ]);
 
 // admin category
-SimpleRouter::get('/admin/categories', 'CategoryController@index');
+SimpleRouter::get('/admin/categories', 'CategoryController@main');
 
-SimpleRouter::get('/admin/category/add', 'CategoryController@add');
+SimpleRouter::get('/admin/category/{id}', 'CategoryController@parent')->where([ 'id' => '[0-9]+' ]);
+
+SimpleRouter::get('/admin/category/add/{id}', 'CategoryController@add')->where([ 'id' => '[0-9]+' ]);
 
 SimpleRouter::post('/admin/category/add', 'CategoryController@create');
 

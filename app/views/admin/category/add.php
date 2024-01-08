@@ -8,16 +8,7 @@
 					<input type="text" class="form-control" id="name" name="name">
 				</div>
 				<!-- parent category -->
-				<div class="form-group">
-					<label for="parent">Category Parent</label>
-					<select class="form-select" name="parent_id" id="parent">
-						<option selected>Не выбрана</option>
-						{% for main_cat in cats %}
-							<option value="{{main_cat.id}}">{{ main_cat.name }}</option>
-						{% endfor %}
-					</select>
-				</div>
-
+				<input type="hidden" value="{{parent_id}}" name="parent_id">
 				<button type="submit" class="btn btn-primary">Add</button>
 			</form>
 		</div>

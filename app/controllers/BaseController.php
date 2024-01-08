@@ -20,13 +20,28 @@ class BaseController
     protected function redirect($url)
     {
         header('Location: /' . $url);
+        exit;
     }
 
-    protected function addMessage($result, $text, $key = true)
+    protected function redirectTwo($result, $url_arr)
+    {
+        if ($result) $url = $url_arr['ok'];
+        else $url = $url_arr['error'];
+        header('Location: /' . $url);
+        exit;
+    }
+
+    protected function addMessageKey($result, $key)
     {
         $type = $result ? 'ok' : 'error';
-        if ($key) Message::addKey($text, $type);
-        else Message::addText($text, $type);
+        Message::addKey($type, $key);
+        return $this;
+    }
+
+    protected function addMessageText($result, $text)
+    {
+        $type = $result ? 'ok' : 'error';
+        Message::addText($type, $text);
         return $this;
     }
 
